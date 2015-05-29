@@ -5,8 +5,13 @@ handler = (data) ->
 
   fileJSON = "{\n"
   for key, index in keys
-    escape = data[key].replace(/"/g, "\\\"")
-    val = "  \"#{key}\": \"#{escape}\""
+    if data[key].replace
+        escape = data[key].replace(/"/g, "\\\"")
+        val = "  \"#{key}\": \"#{escape}\""
+    else 
+        escape = handler(data[key])
+        val =   "  \"" + key + "\": " + escape;
+
     if index isnt keys.length - 1
       val += ","
 
